@@ -6,6 +6,7 @@ from inventory_report.inventory import Inventory
 class SimpleReport:
     def __init__(self) -> None:
         self._inventory_list: list[Inventory] = []
+        self._companies_inventories: dict[str, int] = {}
 
     def add_inventory(self, inventory: Inventory) -> None:
         self._inventory_list.append(inventory)
@@ -20,7 +21,6 @@ class SimpleReport:
 
         oldest_manufacturing_date = date.today()
         closest_expiration_date = date(9999, 12, 31)
-        companies_inventories: dict[str, int] = {}
 
         for product in products:
             manufacturing_date = datetime.strptime(
@@ -42,14 +42,14 @@ class SimpleReport:
             ):
                 closest_expiration_date = expiration_date
 
-            if company_name not in companies_inventories:
-                companies_inventories[company_name] = 1
+            if company_name not in self.companies_inventories:
+                self.companies_inventories[company_name] = 1
             else:
-                companies_inventories[company_name] += 1
+                self.companies_inventories[company_name] += 1
 
         company_largest_inventory = max(
-            companies_inventories,
-            key=lambda company: companies_inventories[company],
+            self.companies_inventories,
+            key=lambda company: self.companies_inventories[company],
         )
 
         return (
@@ -62,3 +62,7 @@ class SimpleReport:
     @property
     def inventory_list(self) -> list[Inventory]:
         return self._inventory_list
+
+    @property
+    def companies_inventories(self) -> dict[str, int]:
+        return self._companies_inventories
