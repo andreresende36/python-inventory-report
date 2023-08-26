@@ -25,5 +25,6 @@
     "python.analysis.diagnosticSeverityOverrides": {
         "reportGeneralTypeIssues": "none",
         "reportUnknownArgumentType": "none",
-    }
+    },
+    "python.analysis.typeCheckingMode": "basic"
 }
