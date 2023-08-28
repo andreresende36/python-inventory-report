@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List
 
 from inventory_report.importers import CsvImporter, JsonImporter
 from inventory_report.inventory import Inventory
